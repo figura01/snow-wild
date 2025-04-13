@@ -28,7 +28,7 @@ const DetailProductAdmin = () => {
           console.log("error");
           console.log(error);
         },
-      });>
+      });
     }
   }, [getMaterial, router.query.id]);
 
