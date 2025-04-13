@@ -1,17 +1,18 @@
 import { gql } from "@apollo/client";
 
 export const LOGIN = gql`
-  query Login($infos: InputLogin!) {
+  mutation Login($infos: InputLogin!) {
     login(infos: $infos) {
       email
       id
       role
+      token
     }
   }
 `;
 
 export const LOGOUT = gql`
-  query Logout{
+  query Logout {
     logout {
       success
       message

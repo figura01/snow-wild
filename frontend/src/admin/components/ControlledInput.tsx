@@ -1,26 +1,34 @@
-import { Input } from "@/components/ui/input";
-import { useState } from "react"
+import { Input } from "@/ui/Input";
+import { useState } from "react";
 
-const ControlledInput = ({ initialValue, index, form} : {initialValue: number, index: number, form: any}) => {
-
+const ControlledInput = ({
+  initialValue,
+  index,
+  form,
+}: {
+  initialValue: number;
+  index: number;
+  form: any;
+}) => {
   const [value, setValue] = useState<number>(initialValue);
   const handleChange = (e: React.FormEvent<HTMLInputElement>) => {
-
-    setValue(Number(e.currentTarget.value))
+    setValue(Number(e.currentTarget.value));
     // console.log(fields)
-    let copyArrSizes = form.getValues('sizes');
+    let copyArrSizes = form.getValues("sizes");
     copyArrSizes[index].quantity = Number(e.currentTarget.value);
-    form.setValue('sizes', copyArrSizes);
-  }
+    form.setValue("sizes", copyArrSizes);
+  };
 
   return (
     <Input
       type="number"
       value={value}
-      onChange={(e) => { handleChange(e) }} // handleChange(e)}}
+      onChange={(e) => {
+        handleChange(e);
+      }} // handleChange(e)}}
       className="flex items-stretch"
     />
-  )
+  );
 };
 
-export default ControlledInput
+export default ControlledInput;

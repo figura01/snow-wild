@@ -28,7 +28,7 @@ export const routes: { [key: string]: Route } = {
     protected: "PUBLIC",
   },
   adminUsers: {
-    pathname: "/admin/users",
+    pathname: "/admin/users/list",
     title: "Gestion des utilisateurs",
     protected: "ADMIN",
   },
@@ -43,7 +43,7 @@ export const routes: { [key: string]: Route } = {
     protected: "ADMIN",
   },
   adminProducts: {
-    pathname: "/admin/products",
+    pathname: "/admin/products/list",
     title: "Gestion des materiels",
     protected: "ADMIN",
   },
@@ -53,12 +53,12 @@ export const routes: { [key: string]: Route } = {
     protected: "ADMIN",
   },
   adminCategories: {
-    pathname: "/admin/categories",
+    pathname: "/admin/categories/list",
     title: "Gestion des categories",
     protected: "ADMIN",
   },
   adminReservations: {
-    pathname: "/admin/reservations",
+    pathname: "/admin/reservations/list",
     title: "Gestion des reservations",
     protected: "ADMIN",
   },
@@ -72,5 +72,4 @@ export const routes: { [key: string]: Route } = {
     title: "Votre compte",
     protected: "PRIVATE",
   },
- 
 };

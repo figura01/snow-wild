@@ -1,6 +1,6 @@
+// import { SizeType } from "@/types";
 // import { useState } from "react";
 // import SizeItem from "./SizeItem";
-// import { SizeType } from "@/types";
 
 // const SizeList = ({ sizes, onFormSelectedSize } : { sizes: SizeType[], onFormSelectedSize: () => void}) => {
 
@@ -15,13 +15,13 @@
 //     });
 //     onFormSelectedSize(item.label)
 //   }
-  
+
 //   return sizes && (
 //     <ul className="flex gap-4">
 //       {sizes && sizes.map((size) => (
-//         <SizeItem 
+//         <SizeItem
 //           key={`size_${size.label}`}
-//           item={size} 
+//           item={size}
 //           selectedSize={selectedSize}
 //           setSelectedSize={setSelectedSize}
 //           onHandleSelectSize={handleSelectSize}

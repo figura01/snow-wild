@@ -1,8 +1,5 @@
-"use client";
-
-import React from "react";
+import { routes } from "@/routes";
 import { useRouter } from "next/navigation";
-import { routes } from '@/routes';
 
 const Error = () => {
   const router = useRouter();
@@ -12,9 +9,7 @@ const Error = () => {
       <p className="text-center mb-6 [font-size:_clamp(1em,1.5vw,2em)]">
         Une erreur s&apos;est produite
       </p>
-      <button
-        onClick={() => router.push(`${routes["home"].pathname}`)}
-      >
+      <button onClick={() => router.push(`${routes["home"].pathname}`)}>
         Retourner à l&apos;accueil
       </button>
     </div>

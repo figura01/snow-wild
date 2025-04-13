@@ -1,0 +1,225 @@
+import { DataTable } from "@/admin/components/DataTable";
+import { DELETE_RESERVATION_BY_ADMIN } from "@/admin/requetes/mutations/reservation.mutations";
+import { GET_RESERVATIONS } from "@/admin/requetes/queries/reservation.queries";
+import { ReservationType, UserType } from "@/types";
+import { Button } from "@/ui/Button";
+import { useMutation, useQuery } from "@apollo/client";
+import { CaretSortIcon } from "@radix-ui/react-icons";
+import { ColumnDef } from "@tanstack/react-table";
+import { Eye, Pen, Trash } from "lucide-react";
+import Link from "next/link";
+import { useRouter } from "next/router";
+function Reservations() {
+  const router = useRouter();
+  let { data, error, loading } = useQuery(GET_RESERVATIONS, {
+    fetchPolicy: "cache-and-network",
+  });
+
+  const [deleteReservation] = useMutation(DELETE_RESERVATION_BY_ADMIN, {
+    fetchPolicy: "network-only",
+    // refetchQueries: [{ query: GET_RESERVATIONS }]
+  });
+
+  const handleDeleteReservation = (id: string) => {
+    console.log("id: ", id);
+    deleteReservation({
+      variables: {
+        adminDeleteReservationId: id,
+      },
+      onCompleted: (res) => {
+        console.log("SUCCESS TO DELETE");
+        console.log("res: ", res);
+
+        if (res) {
+          console.log("data after result: ", data);
+          data.reservations = data.users.filter(
+            (u: UserType, index: number) => res.deleteAdminUser.id !== u.id
+          );
+          router.push("/admin/users/list");
+        }
+      },
+
+      onError: (error) => {
+        console.log("ERROR", error);
+      },
+    });
+  };
+
+  const columns: ColumnDef<ReservationType>[] = [
+    {
+      accessorKey: "user",
+      header: ({ column }) => {
+        return (
+          <Button
+            variant="ghost"
+            onClick={() => {
+              console.log(column.getIsSorted() === "desc");
+              column.toggleSorting(column.getIsSorted() === "asc");
+            }}
+          >
+            User
+            <CaretSortIcon className="ml-2 h-4 w-4" />
+          </Button>
+        );
+      },
+      cell: ({ row }) => (
+        <div className="lowercase">
+          {row.original.user.firstName} {row.original.user.lastName}
+        </div>
+      ),
+    },
+    {
+      accessorKey: "start_date",
+      header: ({ column }) => {
+        return (
+          <Button
+            variant="ghost"
+            onClick={() => {
+              console.log(column.getIsSorted() === "desc");
+              column.toggleSorting(column.getIsSorted() === "asc");
+            }}
+          >
+            Start Date
+            <CaretSortIcon className="ml-2 h-4 w-4" />
+          </Button>
+        );
+      },
+      cell: ({ row }) => (
+        <div className="lowercase">{row.getValue("stat_date")}</div>
+      ),
+    },
+    {
+      accessorKey: "end_date",
+      header: ({ column }) => {
+        return (
+          <Button
+            variant="ghost"
+            onClick={() => {
+              console.log(column.getIsSorted() === "desc");
+              column.toggleSorting(column.getIsSorted() === "asc");
+            }}
+          >
+            End date
+            <CaretSortIcon className="ml-2 h-4 w-4" />
+          </Button>
+        );
+      },
+      cell: ({ row }) => (
+        <div className="lowercase">{row.getValue("end_date")}</div>
+      ),
+    },
+    {
+      accessorKey: "status",
+      header: ({ column }) => {
+        return (
+          <Button
+            variant="ghost"
+            onClick={() => {
+              console.log(column.getIsSorted() === "desc");
+              column.toggleSorting(column.getIsSorted() === "asc");
+            }}
+          >
+            Status
+            <CaretSortIcon className="ml-2 h-4 w-4" />
+          </Button>
+        );
+      },
+      cell: ({ row }) => (
+        <div className="lowercase">{row.getValue("status")}</div>
+      ),
+    },
+    {
+      accessorKey: "role",
+      header: ({ column }) => {
+        return (
+          <Button
+            variant="ghost"
+            onClick={() => {
+              console.log(column.getIsSorted() === "desc");
+              column.toggleSorting(column.getIsSorted() === "asc");
+            }}
+          >
+            Role
+            <CaretSortIcon className="ml-2 h-4 w-4" />
+          </Button>
+        );
+      },
+      cell: ({ row }) => (
+        <div className="lowercase">{row.getValue("role")}</div>
+      ),
+    },
+    {
+      header: "Action",
+      cell: ({ row }) => {
+        // console.log('row: ', row)
+        // console.log('row.original: ', row.original)
+        return (
+          <div className="flex lowercase gap-2">
+            <Link href={`/admin/users/${row.original.id}`}>
+              <div
+                className="
+                flex rounded-full bg-gray-200 shadow-sm p-2
+                hover:bg-black hover:text-white transition-all"
+              >
+                <Eye />
+              </div>
+            </Link>
+
+            <Link
+              className="rounded-full"
+              href={`/admin/users/edit/${row.original.id}`}
+            >
+              <div
+                className="
+                flex rounded-full bg-gray-200 shadow-sm p-2
+                hover:bg-black hover:text-white transition-all"
+              >
+                <Pen />
+              </div>
+            </Link>
+
+            <div
+              onClick={() => {
+                handleDeleteReservation(row.original.id);
+              }}
+            >
+              <div
+                className="
+                flex rounded-full bg-gray-200 shadow-sm p-2
+                hover:bg-black hover:text-white transition-all"
+              >
+                <Trash />
+              </div>
+            </div>
+          </div>
+        );
+      },
+    },
+  ];
+
+  if (loading) {
+    return <p>Loading...</p>;
+  }
+  if (error) {
+    return <p>Some Error Occurred...</p>;
+  }
+
+  return (
+    data && (
+      <div className="w-full">
+        <div className="flex items-cente bg-white py-4">
+          {data && (
+            <DataTable
+              columns={columns}
+              data={data.adminGetReservations}
+              title="List of reservations"
+              createEntity="reservations"
+            />
+          )}
+        </div>
+      </div>
+    )
+  );
+}
+
+export default Reservations;

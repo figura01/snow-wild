@@ -1,8 +1,5 @@
-import { CART_STORAGE_KEY } from "@/constants";
-import {
-  GetFromLocalStorage,
-  SetToLocalStorage,
-} from "@/hooks/useLocalStorage";
+import { CART_STORAGE_KEY } from "@/constants/localStrotageKeys";
+import UseLocalStorage from "@/hooks/useLocalStorage";
 import React, {
   createContext,
   ReactNode,
@@ -49,6 +46,7 @@ interface CartProviderProps {
 
 export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
   const [cart, setCart] = useState<CartItem[]>([]);
+  const { GetFromLocalStorage, SetToLocalStorage } = UseLocalStorage();
 
   useEffect(() => {
     GetFromLocalStorage(CART_STORAGE_KEY);
@@ -62,14 +60,14 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
     setCart((prevCart) => {
       const existingItem = prevCart.find(
         (cartItem) =>
-          cartItem.id === item.id && cartItem.selectedSize === selectedSize
+          cartItem.id === item.id && cartItem.selectedSize === selectedSize,
       );
       if (existingItem) {
         // Si l'article existe avec la même taille, mettre à jour la quantité
         return prevCart.map((cartItem) =>
           cartItem.id === item.id && cartItem.selectedSize === selectedSize
             ? { ...cartItem, quantity: cartItem.quantity + 1 }
-            : cartItem
+            : cartItem,
         );
       } else {
         // Ajouter un nouvel article avec la taille sélectionnée
@@ -81,22 +79,22 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
   const removeFromCart = (id: string, selectedSize: string) => {
     setCart((prevCart) =>
       prevCart.filter(
-        (item) => !(item.id === id && item.selectedSize === selectedSize)
-      )
+        (item) => !(item.id === id && item.selectedSize === selectedSize),
+      ),
     );
   };
 
   const updateQuantity = (
     id: string,
     selectedSize: string,
-    quantity: number
+    quantity: number,
   ) => {
     setCart((prevCart) =>
       prevCart.map((item) =>
         item.id === id && item.selectedSize === selectedSize
           ? { ...item, quantity }
-          : item
-      )
+          : item,
+      ),
     );
   };
 

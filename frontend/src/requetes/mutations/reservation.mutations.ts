@@ -3,6 +3,7 @@ import { gql } from "@apollo/client";
 export const CREATE_RESERVATION = gql`
   mutation Mutation($data: CreateReservationInput!) {
     createReservation(data: $data) {
+      id
       start_date
       end_date
       user {

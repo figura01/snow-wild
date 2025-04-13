@@ -3,7 +3,6 @@ import { GET_MATERIAL_BY_ID } from "@/requetes/queries/material.queries";
 import { useLazyQuery } from "@apollo/client";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
-
 const DetailProductAdmin = () => {
   const router = useRouter();
   const [getMaterial, { data, loading, error }] = useLazyQuery(

@@ -1,9 +1,7 @@
-// "use client";
+//
 
 // import { Step, type StepItem, Stepper, useStepper } from "./stepper";
 // import { Button } from "@/components/ui/button";
-
-
 
 // export default function StepperClickableSteps({ steps }) {
 // 	return (
@@ -27,7 +25,7 @@
 // 										{stepProps?.categories?.map((c) => (
 // 											<option key={`category_${c.id}`} value={c.id}>{c.name}</option>
 // 										))}
-										
+
 // 									</select>
 // 								)}
 // 							</div>
