@@ -1,8 +1,10 @@
 import type { LucideIcon } from "lucide-react";
-import { Category } from "@/types";
 
 type IconType = LucideIcon | React.ComponentType<any> | undefined;
-
+export interface Category {
+	id: string;
+	name: string;
+}
 type StepItem = {
 	id?: string;
 	label?: string;
