@@ -8,11 +8,12 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm'
 import Category from './category.entity'
-import { ReservationMaterial } from './reservation_material.entity'
+import ReservationMaterial from './reservation_material.entity'
 
 // =================================================================
 //                           OBJECT TYPE
 // =================================================================
+
 @ObjectType()
 @Entity()
 export default class Material {
