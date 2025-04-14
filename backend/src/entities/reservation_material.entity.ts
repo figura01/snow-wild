@@ -15,7 +15,7 @@ import Reservation from './reservation.entity'
 // =================================================================
 @ObjectType()
 @Entity()
-export class ReservationMaterial {
+export default class ReservationMaterial {
   @Field()
   @PrimaryGeneratedColumn('uuid')
   id: string

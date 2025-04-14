@@ -8,7 +8,7 @@ import UserResolver from './resolvers/user.resolver'
 import Cookies from 'cookies'
 import UserService from './services/user.service'
 import PaymentResolver from './resolvers/payment.resolver'
-
+import dotenv from 'dotenv'
 import cors from 'cors'
 import express from 'express'
 import http from 'http'
@@ -35,6 +35,7 @@ export interface Payload {
 }
 
 const app = express()
+dotenv.config()
 const httpServer = http.createServer(app)
 
 async function main() {
@@ -60,7 +61,11 @@ async function main() {
   app.use(
     '/',
     cors<cors.CorsRequest>({
-      origin: ['http://localhost:3000', 'http://localhost:8000'],
+      origin: [
+        'http://localhost:3000', 
+        'http://localhost:8000',
+        'https://snow-wild.vercel.app',
+      ],
       credentials: true,
     }),
     express.json(),
